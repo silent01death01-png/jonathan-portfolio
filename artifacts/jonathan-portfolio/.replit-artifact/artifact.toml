@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Jonathan’s Design Portfolio"
+description = "A Spanish-language multimedia design portfolio introducing Jonathan Yael Figueroa Murillo and showcasing his graphic design, animation, and multimedia projects."
+version = "1.0.0"
+id = "artifacts/jonathan-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20649
+
+[services.development]
+run = "pnpm --filter @workspace/jonathan-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/jonathan-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/jonathan-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20649"
+BASE_PATH = "/"
